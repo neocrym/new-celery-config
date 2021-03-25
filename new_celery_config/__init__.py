@@ -30,15 +30,6 @@ def _load_key(environment_key: str):
     return ""
 
 
-def _load_value(serialized: str):
-    """Deserializes YAML and swallows exceptions."""
-    try:
-        deserialized = yaml.safe_load(serialized)
-    except yaml.YAMLError:
-        return ""
-    return deserialized
-
-
 class Config:  # pylint: disable=too-few-public-methods
     """A Celery config object. For each key, it reads values as YAML in environment variables."""
 
@@ -49,6 +40,9 @@ class Config:  # pylint: disable=too-few-public-methods
         for environment_key, serialized_value in environ.items():
             key = _load_key(environment_key)
             if key:
-                value = _load_value(serialized_value)
-                if value:
+                try:
+                    value = yaml.safe_load(serialized_value)
+                except yaml.YAMLError:
+                    continue
+                else:
                     setattr(self, key, value)

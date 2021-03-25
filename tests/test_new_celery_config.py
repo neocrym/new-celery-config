@@ -46,6 +46,7 @@ class TestNewCeleryConfig(unittest.TestCase):
                 NEW_CELERY_broker_url=BROKER_URL,
                 NEW_CELERY_s3_bucket=S3_BUCKET,
                 NEW_CELERY_broker_transport_options=BROKER_TRANSPORT_OPTIONS,
+                NEW_CELERY_worker_hijack_root_logger="false",
             )
         )
         self.assertEqual(
@@ -54,6 +55,7 @@ class TestNewCeleryConfig(unittest.TestCase):
                 broker_transport_options=dict(visibility_timeout=36000),
                 broker_url=BROKER_URL,
                 s3_bucket=S3_BUCKET,
+                worker_hijack_root_logger=False,
             ),
         )
 
