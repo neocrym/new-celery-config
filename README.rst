@@ -44,7 +44,7 @@ If you want to change the name of the ``CELERY_CONFIG_MODULE``, you can use the 
 
 .. code:: bash
 
-    export CELERY_CONFIG_MODULE=new_celery_config.as_module
+    export ARBITRARY_CELERY_CONFIG_MODULE=new_celery_config.as_module
 
 .. code:: python
 
