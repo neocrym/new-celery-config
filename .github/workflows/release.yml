@@ -20,7 +20,7 @@ jobs:
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
 
-    - name: Publish to PyPI
+    - name: Build the wheel
       id: publish_to_pypi
       run: |
         python3 -m pip install --upgrade pip
@@ -28,7 +28,13 @@ jobs:
         python3 -m poetry config virtualenvs.in-project true
         python3 -m poetry version ${{ steps.get_version.outputs.VERSION }}
         python3 -m poetry build
-        POETRY_PYPI_TOKEN_PYPI=${{ secrets.PYPI_TOKEN }} python3 -m poetry publish --no-interaction
+
+    - name: Publish wheel to Poetry
+      id: publish_wheel_to_poetry
+      shell: bash
+      run: python3 -m poetry publish --no-interaction
+      env:
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
 
     - name: Create GitHub release
       id: create_release
