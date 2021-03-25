@@ -28,8 +28,7 @@ jobs:
         python3 -m poetry config virtualenvs.in-project true
         python3 -m poetry version ${{ steps.get_version.outputs.VERSION }}
         python3 -m poetry build
-        python3 -m poetry config pypi-token.pypi "${{ secrets.PYPI_TOKEN }}"
-        python3 -m poetry publish --no-interaction
+        POETRY_PYPI_TOKEN_PYPI=${{ secrets.PYPI_TOKEN }} python3 -m poetry publish --no-interaction
 
     - name: Create GitHub release
       id: create_release
