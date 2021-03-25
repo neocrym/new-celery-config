@@ -10,7 +10,7 @@ BROKER_URL = "transport://userid:password@hostname:port/virtual_host"
 
 S3_BUCKET = "bucket"
 
-os.environ["ARBITRARY_CELERY_CONFIG_MODULE"] = "new_celery_config.as_module"
+os.environ["CELERY_CONFIG_MODULE"] = "new_celery_config.as_module"
 os.environ["NEW_CELERY_broker_transport_options"] = BROKER_TRANSPORT_OPTIONS
 os.environ["NEW_CELERY_broker_url"] = BROKER_URL
 os.environ["NEW_CELERY_s3_bucket"] = S3_BUCKET
@@ -29,7 +29,6 @@ class TestAsModule(unittest.TestCase):
     def test_works_with_celery(self):  # pylint: disable-duplicate-code
         """Test that Celery understands these objects."""
         app = Celery()
-        app.config_from_envvar("ARBITRARY_CELERY_CONFIG_MODULE")
         self.assertEqual(
             app.conf.broker_transport_options, dict(visibility_timeout=36000)
         )
