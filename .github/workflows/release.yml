@@ -1,0 +1,64 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: "3.9"
+
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+
+    - name: Publish to PyPI
+      id: publish_to_pypi
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install poetry
+        python3 -m poetry config virtualenvs.in-project true
+        python3 -m poetry version ${{ steps.get_version.outputs.VERSION }}
+        python3 -m poetry build
+        python3 -m poetry config pypi-token.pypi "${{ secrets.PYPI_TOKEN }}"
+
+    - name: Create GitHub release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Python wheel to the GitHub release
+      id: upload_python_wheel
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./dist/new_celery_config-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
+        asset_name: new_celery_config-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
+        asset_content_type: application/x-wheel+zip
+
+    - name: Upload Python tar.gz to the GitHub release
+      id: upload_python_targz
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./dist/new_celery_config-${{ steps.get_version.outputs.VERSION }}.tar.gz
+        asset_name: new_celery_config-${{ steps.get_version.outputs.VERSION }}.tar.gz
+        asset_content_type: application/gzip
