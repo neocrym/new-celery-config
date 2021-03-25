@@ -29,6 +29,7 @@ jobs:
         python3 -m poetry version ${{ steps.get_version.outputs.VERSION }}
         python3 -m poetry build
         python3 -m poetry config pypi-token.pypi "${{ secrets.PYPI_TOKEN }}"
+        python3 -m poetry publish --no-interaction
 
     - name: Create GitHub release
       id: create_release
