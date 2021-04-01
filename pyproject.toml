@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "new_celery_config"
 version = "0.0.0"
-description = "new_celery_config specifies Celery configuration via environment variables."
+description = "new-celery-config specifies Celery configuration via environment variables."
 authors = ["Neocrym Records Inc. <engineering@neocrym.com>"]
 license = "MIT"
 readme = "README.rst"
