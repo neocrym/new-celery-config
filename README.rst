@@ -1,9 +1,9 @@
-``new_celery_config`` specifies Celery config via environment variables
+``new-celery-config`` specifies Celery config via environment variables
 =======================================================================
 
 `Celery <https://docs.celeryproject.org/en/stable/>`_ is a distributed task queue library for Python. It accepts some of its configuration via environment variables--but some configuration needs to be specified as Python code.
 
-``new_celery_config`` is a Python package that lets you set any top-level Celery key using an environment variable containing YAML.
+``new-celery-config`` is a Python package that lets you set any top-level Celery key using an environment variable containing YAML.
 
 Installation
 ------------
@@ -71,10 +71,10 @@ Celery also accepts configuration in the form of a Python object. If you prefer 
     app.config_from_object(new_celery_config.Config())
 
 
-Contributing changes to ``new_celery_config``
+Contributing changes to ``new-celery-config``
 ---------------------------------------------
 
-If you want to make changes to ``new_celery_config``, you can clone this repository. You can run ``make`` in the root directory to show commands relevant to development.
+If you want to make changes to ``new-celery-config``, you can clone this repository. You can run ``make`` in the root directory to show commands relevant to development.
 
 For example:
  - ``make fmt`` automatically formats Python code.
