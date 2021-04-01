@@ -2,15 +2,15 @@
 name = "new_celery_config"
 version = "0.0.0"
 description = "new_celery_config specifies Celery configuration via environment variables."
-authors = ["Neocrym Records Inc. <opensource@neocrym.com>"]
+authors = ["Neocrym Records Inc. <engineering@neocrym.com>"]
 license = "MIT"
 readme = "README.rst"
 classifiers = [
   "Topic :: Software Development :: Object Brokering",
   "Topic :: System :: Distributed Computing"
 ]
-homepage = "https://github.com/neocrym/new_celery_config"
-repository = "https://github.com/neocrym/new_celery_config"
+homepage = "https://github.com/neocrym/new-celery-config"
+repository = "https://github.com/neocrym/new-celery-config"
 
 [tool.poetry.dependencies]
 python = "^3.7"
