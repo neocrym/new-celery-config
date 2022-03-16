@@ -14,8 +14,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.7", "3.8", "3.9"]
-        os: [ubuntu-20.04, macos-10.15]
+        python-version:
+          - "3.8"
+          - "3.9"
+          - "3.10"
+        os:
+          - "ubuntu-20.04"
+          - "macos-10.15"
+          - "windows-2019"
 
     steps:
     - uses: actions/checkout@v2
@@ -30,10 +36,12 @@ jobs:
         python3 -m pip install poetry
         poetry config virtualenvs.in-project true
 
-    - name: Check formatting
+    - name: Check formatting (Ubuntu only)
+      if: startsWith(matrix.os,'ubuntu')
       run: make fmt-check
 
-    - name: Run lint
+    - name: Run lint (Ubuntu only)
+      if: startsWith(matrix.os,'ubuntu')
       run: make lint
 
     - name: Run tests

@@ -13,14 +13,14 @@ homepage = "https://github.com/neocrym/new-celery-config"
 repository = "https://github.com/neocrym/new-celery-config"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 PyYAML = "*"
 
 [tool.poetry.dev-dependencies]
-pylint = "^2.10.2"
-isort = "^5.8.0"
-black = "^20.8b1"
-mypy = "^0.812"
+pylint = "^2.12.2"
+mypy = "^0.941"
+black = "^22.1.0"
+isort = "^5.10.1"
 celery = "^5.0.5"
 
 [build-system]
