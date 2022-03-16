@@ -12,10 +12,15 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9"]
-        os: [ubuntu-20.04, macos-10.15]
+        python-version:
+          - "3.8"
+          - "3.9"
+          - "3.10"
+        os:
+          - "ubuntu-20.04"
+          - "macos-10.15"
 
     steps:
     - uses: actions/checkout@v2
@@ -26,14 +31,15 @@ jobs:
 
     - name: Install pip and poetry
       run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install poetry
+        python3 -m pip install --upgrade pip wheel poetry
         poetry config virtualenvs.in-project true
 
-    - name: Check formatting
+    - name: Check formatting (Ubuntu Python 3.8 only)
+      if: matrix.os == 'ubuntu-20.04' && matrix.python-version == '3.8'
       run: make fmt-check
 
-    - name: Run lint
+    - name: Run lint (Ubuntu Python 3.8 only)
+      if: matrix.os == 'ubuntu-20.04' && matrix.python-version == '3.8'
       run: make lint
 
     - name: Run tests
