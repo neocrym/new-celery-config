@@ -36,12 +36,12 @@ jobs:
         python3 -m pip install poetry
         poetry config virtualenvs.in-project true
 
-    - name: Check formatting (Ubuntu only)
-      if: startsWith(matrix.os,'ubuntu')
+    - name: Check formatting (Ubuntu Python 3.8 only)
+      if: matrix.os == 'ubuntu-20.04' && matrix.python-version == "3.8"
       run: make fmt-check
 
-    - name: Run lint (Ubuntu only)
-      if: startsWith(matrix.os,'ubuntu')
+    - name: Run lint (Ubuntu Python 3.8 only)
+      if: matrix.os == 'ubuntu-20.04' && matrix.python-version == "3.8"
       run: make lint
 
     - name: Run tests
