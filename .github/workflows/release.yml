@@ -53,8 +53,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./dist/new-celery-config-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
-        asset_name: new-celery-config-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
+        asset_path: ./dist/new_celery_config-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
+        asset_name: new_celery_config-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
         asset_content_type: application/x-wheel+zip
 
     - name: Upload Python tar.gz to the GitHub release
